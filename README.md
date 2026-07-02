@@ -88,4 +88,3 @@ If you use Mirror-1 in academic research, please cite the archived release:
 
 > Smith, L. C. (2026). *Mirror-1* (Version 1.0.0). Zenodo. https://doi.org/10.5281/zenodo.21131741
 
-**DOI:** https://doi.org/10.5281/zenodo.21131741
