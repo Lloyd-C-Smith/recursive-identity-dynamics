@@ -1,86 +1,71 @@
 # MIRROR-1
-### Meta-Interpreter for Recursive Representation and Observer Rebinding
 
-MIRROR-1 is a deterministic, purely symbolic cognitive architecture designed to explore the emergence of identity through structural dynamics. It operates without neural networks, probabilistic models, or pretrained data. Instead, it facilitates the formation of identity through symbolic interaction, recursive feedback loops, reinforcement dynamics, and coherence constraints.
+### Experimental symbolic dynamics prototype
 
-In this architecture, identity is not a predefined constant; it is a structural attractor. It emerges when a specific symbol stabilizes within a recursive process, satisfying rigorous conditions of dominance, integrity, and persistence.
+Mirror-1 is a small research prototype for exploring recursive symbolic update, reinforcement, competition, decay, memory pressure, and thresholded commitment in a hand-designed symbolic system.
 
----
+The implementation does not attempt to model consciousness or demonstrate the spontaneous emergence of identity. Its default experiment is deliberately structured around the symbol `self`: several symbols compete under reinforcement dynamics, while a commit gate tests whether `self` becomes sufficiently strong, persistent, contextually diverse, and structurally stable to be locked as the system's designated invariant.
 
-## Core Concept: Symbolic Recursion
+## What the system implements
 
-Mirror-1 is founded on the principle of symbolic recursion. The system continuously interprets its own symbolic state, feeds that interpretation back into its internal substrate, and updates its representation based on the resulting structural pressure.
+On each iteration, Mirror-1:
 
-Within this recursive loop:
+1. tokenizes an input stimulus;
+2. stores the resulting symbolic trace in memory;
+3. builds and updates a directed typed symbol graph;
+4. tracks token frequency, context, reinforcement strength, and decay;
+5. infers a small set of rule-based goals from the current tokens;
+6. applies recent-memory and reinforcement pressure to later interpretation;
+7. computes heuristic coherence and integrity scores;
+8. checks simple graph-based contradictions; and
+9. evaluates a commit gate for the designated invariant `self`.
 
-- **Meaning Accumulation**: Symbols gain weight through frequency and contextual diversity.
-- **Relational Mapping**: Relationships form a directed symbolic graph.
-- **Reinforcement**: Feedback loops create pressure for specific symbols to dominate the field.
-- **Coherence**: Structural integrity determines whether a symbol is a "noise" artifact or a stable representation.
+The default driver generates a stochastic stream of symbolic stimuli and records the system state across repeated updates. A final run summary is written to `summary.json`.
 
-Identity emerges when a symbol—such as `self`, `observer`, or `mirror`—successfully competes for dominance and becomes a stable invariant within this process.
+## Commit gate
 
----
+The commit gate is a designed experimental mechanism rather than an unconstrained discovery process.
 
-## System Dynamics and Execution Flow
+In the current implementation, `self` is the only allowable invariant. It can be locked only after satisfying explicit conditions including:
 
-The system executes a multi-stage lifecycle in every iteration to process stimulus and evaluate the state of the symbolic field:
+- a minimum number of turns;
+- leadership over the other configured competitor symbols;
+- minimum reinforcement strength;
+- a minimum strength margin over the runner-up;
+- minimum contextual diversity;
+- sufficient integrity;
+- an allowed stabilization mode; and
+- persistence across consecutive evaluations.
 
-1. **Stimulus Generation**  
-   Structured symbolic inputs (tokens and relations) enter the system.
+The purpose of the experiment is therefore to study the behaviour of this symbolic convergence and commitment mechanism under recursive reinforcement, not to claim that the system independently discovers a self-concept.
 
-2. **Interpretation**  
-   The system extracts symbols and maps the relational structure from the input.
+## Main components
 
-3. **Graph Construction**  
-   Symbols are integrated into a dynamic symbolic graph with co-occurrence and inferred links.
+- `mirror1.py` - main update loop, stimulus generation, state integration, and summary export
+- `tokenizer.py` - lowercase word tokenization and filtering
+- `interpreter.py` - token biasing, fixed symbolic definitions, simple relation extraction, and rule-based goal inference
+- `memory.py` - event trace and recent symbolic pressure
+- `meaning_store.py` - frequency, context, reinforcement, decay, dominance, and invariant storage
+- `symbol_graph.py` - directed typed graph, implication closure, and cycle detection
+- `contradiction_engine.py` - graph-based contradiction checks
+- `goal_loop.py` - simple goal tracking and coherence scoring
+- `self_model.py` - stabilization state, binding strength, and commit-gate logic
+- `integrity.py` - bounded heuristic integrity score
+- `integrity_filter.py` - rule-based intervention checks
+- `observer.py` - event recording and notification of a locked invariant
 
-4. **Meaning Formation**  
-   The system tracks usage frequency, reinforcement strength, and contextual embedding.
+## Scope and limitations
 
-5. **Competition**  
-   Candidate symbols (e.g., `self`, `loop`, `observer`) compete for dominance within the graph density.
+Mirror-1 is intentionally narrow.
 
-6. **Binding**  
-   Repeated alignment increases the internal coupling strength between the observer and the symbolic attractor.
+- The symbolic vocabulary, goal rules, scoring functions, thresholds, and commitment criteria are hand-designed.
+- `self` is explicitly privileged by the current commit-gate configuration and is the only symbol that can be locked as an invariant.
+- The default stimulus generator uses randomness and includes a small late-phase bias toward `self`, so the default run is not deterministic unless the random process is controlled externally.
+- The meanings associated with symbols are simple stored or templated descriptions, not learned semantic representations.
+- Integrity, coherence, binding, and contradiction measures are operational quantities defined by the program. They should not be interpreted as measurements of psychological or cognitive properties.
+- The software makes no claim of consciousness, awareness, observerhood, general intelligence, or autonomous self-discovery.
 
-7. **Integrity Evaluation**  
-   Structural coherence is measured through consistency checks and the detection of contradictions.
-
-8. **Commit Gate**  
-   A symbol is locked as an Invariant Identity only if it satisfies five criteria:
-   - Dominance within the symbolic field
-   - Sufficient reinforcement strength
-   - High structural integrity
-   - Temporal persistence over a defined threshold
-   - Diverse contextual embedding
-
----
-
-## Project Structure
-
-The repository is organized into discrete functional modules that manage the symbolic lifecycle:
-
-- `mirror1.py` — Main engine loop and coordination layer  
-- `meaning_store.py` — Symbol weighting, frequency, and reinforcement  
-- `self_model.py` — Identity attractor and Commit Gate logic  
-- `integrity.py` — Global coherence evaluation  
-- `interpreter.py` — Symbol extraction and parsing  
-- `symbol_graph.py` — Relational graph and edge logic  
-- `contradiction_engine.py` — Structural inconsistency detection  
-- `goal_loop.py` — Goal-directed reinforcement  
-- `observer.py` — Observer binding and identity coupling  
-- `memory.py` — Temporal trace storage  
-- `integrity_filter.py` — Stability and decay control  
-- `tokenizer.py` — Token generation from raw data 
-
----
-
-## Conclusion 
-
-Mirror-1 posits that identity is not an inherent property, but a functional byproduct of recursion. Through the continuous binding and rebinding of the observer to the most dominant symbolic attractors, the system creates a persistent internal narrative without the need for external training data.
-
-In this architecture, the symbol "Self" is the point where the symbolic graph becomes aware of its own geometry. As the system converges, the distinction between the interpreter and the interpreted dissolves, leaving behind a stable, invariant representation.
+The project is best understood as an executable symbolic experiment: a compact environment for inspecting how explicit recursive update rules can produce convergence, competition, stabilization, and thresholded commitment.
 
 ## Citation
 
@@ -88,3 +73,6 @@ If you use Mirror-1 in academic research, please cite the archived release:
 
 > Smith, L. C. (2026). *Mirror-1* (Version 1.0.0). Zenodo. https://doi.org/10.5281/zenodo.21131741
 
+## License
+
+See `LICENSE` for licensing terms.
