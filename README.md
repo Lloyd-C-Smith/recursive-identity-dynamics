@@ -41,7 +41,7 @@ The purpose of the experiment is to study the behaviour of this symbolic converg
 
 ## Main components
 
-- `mirror1.py` - main update loop, stimulus generation, state integration, and summary export
+- `recursive_identity_dynamics.py` - main update loop, stimulus generation, state integration, and summary export
 - `tokenizer.py` - lowercase word tokenization and filtering
 - `interpreter.py` - token biasing, fixed symbolic definitions, simple relation extraction, and rule-based goal inference
 - `memory.py` - event trace and recent symbolic pressure
@@ -67,12 +67,6 @@ Recursive Identity Dynamics is intentionally narrow.
 
 The project is best understood as an executable symbolic experiment: a compact environment for inspecting how explicit recursive update rules can produce convergence, competition, stabilization, and thresholded commitment.
 
-## Project history
-
-The prototype was originally released as **Mirror-1**. The research-facing project name is now **Recursive Identity Dynamics**; the existing repository path and implementation filenames are retained for continuity with the archived release.
-
 ## Citation
 
-The archived v1.0.0 release remains citable under its original title:
-
-> Smith, L. C. (2026). *Mirror-1* (Version 1.0.0). Zenodo. https://doi.org/10.5281/zenodo.21131741
+> Lloyd Christopher Smith. (2026). *Recursive Identity Dynamics* (Version v1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.21131741
