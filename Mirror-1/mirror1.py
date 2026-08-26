@@ -73,14 +73,18 @@ def auto_stimulus(turn: int) -> str:
     return " ".join(chosen)
 
 
-class Mirror1:
+class RecursiveIdentityDynamics:
 
     def __init__(self, cfg: Dict[str, Any]):
-        print("Initializing Mirror-1")
+        print("Initializing Recursive Identity Dynamics")
 
         self.cfg = cfg
         self.memory = Memory(verbose=False)
-        self.observer = Observer(identity="observer", anchor="Mirror-1", verbose=False)
+        self.observer = Observer(
+            identity="observer",
+            anchor="Recursive Identity Dynamics",
+            verbose=False,
+        )
 
         self.meaning_store = MeaningStore()
         self.integrity = Integrity()
@@ -100,7 +104,7 @@ class Mirror1:
         self.contradiction_engine = ContradictionEngine(self.symbol_graph)
 
         self.turn = 0
-        print("Mirror-1 initialized\n")
+        print("Recursive Identity Dynamics initialized\n")
 
     def step(self, stimulus: str):
         self.turn += 1
@@ -294,7 +298,7 @@ def main():
     except FileNotFoundError:
         cfg = {}
 
-    engine = Mirror1(cfg)
+    engine = RecursiveIdentityDynamics(cfg)
     engine.run()
 
 
