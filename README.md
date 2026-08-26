@@ -1,14 +1,14 @@
-# MIRROR-1
+# Recursive Identity Dynamics
 
 ### Experimental symbolic dynamics prototype
 
-Mirror-1 is a small research prototype for exploring recursive symbolic update, reinforcement, competition, decay, memory pressure, and thresholded commitment in a hand-designed symbolic system.
+Recursive Identity Dynamics is a small research prototype for studying recursive symbolic update, reinforcement, competition, decay, memory pressure, and thresholded commitment in a hand-designed symbolic system.
 
 The implementation does not attempt to model consciousness or demonstrate the spontaneous emergence of identity. Its default experiment is deliberately structured around the symbol `self`: several symbols compete under reinforcement dynamics, while a commit gate tests whether `self` becomes sufficiently strong, persistent, contextually diverse, and structurally stable to be locked as the system's designated invariant.
 
 ## What the system implements
 
-On each iteration, Mirror-1:
+On each iteration, the system:
 
 1. tokenizes an input stimulus;
 2. stores the resulting symbolic trace in memory;
@@ -37,7 +37,7 @@ In the current implementation, `self` is the only allowable invariant. It can be
 - an allowed stabilization mode; and
 - persistence across consecutive evaluations.
 
-The purpose of the experiment is therefore to study the behaviour of this symbolic convergence and commitment mechanism under recursive reinforcement, not to claim that the system independently discovers a self-concept.
+The purpose of the experiment is to study the behaviour of this symbolic convergence and commitment mechanism under recursive reinforcement, not to claim that the system independently discovers a self-concept.
 
 ## Main components
 
@@ -56,7 +56,7 @@ The purpose of the experiment is therefore to study the behaviour of this symbol
 
 ## Scope and limitations
 
-Mirror-1 is intentionally narrow.
+Recursive Identity Dynamics is intentionally narrow.
 
 - The symbolic vocabulary, goal rules, scoring functions, thresholds, and commitment criteria are hand-designed.
 - `self` is explicitly privileged by the current commit-gate configuration and is the only symbol that can be locked as an invariant.
@@ -67,8 +67,12 @@ Mirror-1 is intentionally narrow.
 
 The project is best understood as an executable symbolic experiment: a compact environment for inspecting how explicit recursive update rules can produce convergence, competition, stabilization, and thresholded commitment.
 
+## Project history
+
+The prototype was originally released as **Mirror-1**. The research-facing project name is now **Recursive Identity Dynamics**; the existing repository path and implementation filenames are retained for continuity with the archived release.
+
 ## Citation
 
-If you use Mirror-1 in academic research, please cite the archived release:
+The archived v1.0.0 release remains citable under its original title:
 
 > Smith, L. C. (2026). *Mirror-1* (Version 1.0.0). Zenodo. https://doi.org/10.5281/zenodo.21131741
