@@ -1,71 +1,72 @@
 # Recursive Identity Dynamics
 
-### Experimental symbolic dynamics prototype
+### A computational framework for recursive symbolic stabilization and identity dynamics
 
-Recursive Identity Dynamics is a small research prototype for studying recursive symbolic update, reinforcement, competition, decay, memory pressure, and thresholded commitment in a hand-designed symbolic system.
+**Recursive Identity Dynamics (RID)** is an executable research framework for investigating how symbolic representations acquire persistence, dominance, and stable commitment through repeated cycles of interpretation, memory, reinforcement, competition, decay, and constraint.
 
-The implementation does not attempt to model consciousness or demonstrate the spontaneous emergence of identity. Its default experiment is deliberately structured around the symbol `self`: several symbols compete under reinforcement dynamics, while a commit gate tests whether `self` becomes sufficiently strong, persistent, contextually diverse, and structurally stable to be locked as the system's designated invariant.
+**Core research question:** Under what conditions can a recursively updated symbolic system maintain a stable internal representation despite competing symbols, changing inputs, and decay?
 
-## What the system implements
+RID treats identity stabilization as a dynamical process rather than simply a static label. Its current implementation makes that process inspectable: symbols accumulate reinforcement and contextual associations, interact in a directed typed graph, and are evaluated against explicit stability and integrity conditions. A thresholded commit gate can lock a designated representation once its criteria are satisfied.
+
+This is a **controlled model of symbolic stabilization**, not a demonstration that consciousness or an independently discovered self-concept has emerged. Its value is in making the mechanisms and their assumptions explicit, measurable, and open to falsification.
+
+## Why investigate this?
+
+Stable representations are central to many computational questions: how memory influences later interpretation; how one representation outcompetes alternatives; how persistent structure survives perturbation; and how constraints determine whether a state is accepted as stable.
+
+RID brings these questions together in a compact experimental setting. It offers a platform for asking which outcomes follow from recursive feedback, which depend on chosen parameters, and which disappear when a built-in preference is removed.
+
+The longer-term ambition is to move from **designed stabilization** toward experimentally demonstrated **endogenous selection**. That is a research objective, not a result already established.
+
+## How RID works
 
 On each iteration, the system:
 
-1. tokenizes an input stimulus;
-2. stores the resulting symbolic trace in memory;
-3. builds and updates a directed typed symbol graph;
-4. tracks token frequency, context, reinforcement strength, and decay;
-5. infers a small set of rule-based goals from the current tokens;
-6. applies recent-memory and reinforcement pressure to later interpretation;
-7. computes heuristic coherence and integrity scores;
-8. checks simple graph-based contradictions; and
-9. evaluates a commit gate for the designated invariant `self`.
+1. Tokenizes an incoming stimulus and stores a symbolic memory trace.
+2. Updates a directed, typed graph of symbol relations.
+3. Tracks token frequency, context, reinforcement, competition, and decay.
+4. Infers simple rule-based goals and applies recent-memory pressure to interpretation.
+5. Computes operational coherence and integrity scores and checks graph-based contradictions.
+6. Evaluates whether the designated candidate meets the conditions for stable commitment.
 
-The default driver generates a stochastic stream of symbolic stimuli and records the system state across repeated updates. A final run summary is written to `summary.json`.
+The default driver generates stochastic symbolic stimuli, records state across updates, and writes a final `summary.json`.
 
-## Commit gate
+### Thresholded commitment
 
-The commit gate is a designed experimental mechanism rather than an unconstrained discovery process.
+In the present experiment, `self` is the **sole eligible invariant**. Its commit gate requires a minimum number of turns, leadership over configured competitors, sufficient strength and margin, contextual diversity, integrity, an allowed stabilization mode, and persistence across consecutive evaluations.
 
-In the current implementation, `self` is the only allowable invariant. It can be locked only after satisfying explicit conditions including:
+These criteria are deliberately specified by the experimenter. The interesting observable is **whether, when, and how the configured system satisfies them**, and how that behavior changes under controlled interventions. A successful lock is not evidence of spontaneous self-discovery.
 
-- a minimum number of turns;
-- leadership over the other configured competitor symbols;
-- minimum reinforcement strength;
-- a minimum strength margin over the runner-up;
-- minimum contextual diversity;
-- sufficient integrity;
-- an allowed stabilization mode; and
-- persistence across consecutive evaluations.
+## Research directions
 
-The purpose of the experiment is to study the behaviour of this symbolic convergence and commitment mechanism under recursive reinforcement, not to claim that the system independently discovers a self-concept.
+- **Symbolic competition:** Map conditions under which a candidate wins, loses, or oscillates.
+- **Memory-dependent interpretation:** Test whether changes to history alter future trajectories.
+- **Constraint-mediated selection:** Measure the contribution of integrity and persistence gates.
+- **Robustness:** Test sensitivity to seeds, parameter changes, stimulus distributions, and perturbations.
+- **Endogenous selection:** Generalize beyond a privileged `self` token and test whether any stable representation is selected without a predefined winner.
 
-## Main components
+See [RESEARCH_ROADMAP.md](RESEARCH_ROADMAP.md) for hypotheses, validation gates, and proposed next experiments.
 
-- `recursive_identity_dynamics.py` - main update loop, stimulus generation, state integration, and summary export
-- `tokenizer.py` - lowercase word tokenization and filtering
-- `interpreter.py` - token biasing, fixed symbolic definitions, simple relation extraction, and rule-based goal inference
-- `memory.py` - event trace and recent symbolic pressure
-- `meaning_store.py` - frequency, context, reinforcement, decay, dominance, and invariant storage
-- `symbol_graph.py` - directed typed graph, implication closure, and cycle detection
-- `contradiction_engine.py` - graph-based contradiction checks
-- `goal_loop.py` - simple goal tracking and coherence scoring
-- `self_model.py` - stabilization state, binding strength, and commit-gate logic
-- `integrity.py` - bounded heuristic integrity score
-- `integrity_filter.py` - rule-based intervention checks
-- `observer.py` - event recording and notification of a locked invariant
+## Implementation map
 
-## Scope and limitations
+- `recursive_identity_dynamics.py` — update loop, stimulus generation, integration, and summary export
+- `tokenizer.py` — lowercase tokenization and filtering
+- `interpreter.py` — token biasing, fixed symbolic definitions, relation extraction, and rule-based goals
+- `memory.py` — event traces and recent symbolic pressure
+- `meaning_store.py` — frequency, context, reinforcement, decay, dominance, and invariant storage
+- `symbol_graph.py` — typed directed graph, implication closure, and cycle detection
+- `contradiction_engine.py` — graph-based contradiction checks
+- `goal_loop.py` — goal tracking and coherence scoring
+- `self_model.py` — stabilization state, binding strength, and commit gate
+- `integrity.py` — bounded operational integrity score
+- `integrity_filter.py` — rule-based intervention checks
+- `observer.py` — event recording and locked-invariant notifications
 
-Recursive Identity Dynamics is intentionally narrow.
+## Interpretation and boundaries
 
-- The symbolic vocabulary, goal rules, scoring functions, thresholds, and commitment criteria are hand-designed.
-- `self` is explicitly privileged by the current commit-gate configuration and is the only symbol that can be locked as an invariant.
-- The default stimulus generator uses randomness and includes a small late-phase bias toward `self`, so the default run is not deterministic unless the random process is controlled externally.
-- The meanings associated with symbols are simple stored or templated descriptions, not learned semantic representations.
-- Integrity, coherence, binding, and contradiction measures are operational quantities defined by the program. They should not be interpreted as measurements of psychological or cognitive properties.
-- The software makes no claim of consciousness, awareness, observerhood, general intelligence, or autonomous self-discovery.
+RID currently uses hand-designed vocabulary, rules, scoring functions, thresholds, and commitment criteria. Its default stochastic stimulus generator includes a small late-phase bias toward `self`; runs are not deterministic unless randomness is controlled. Symbol meanings are stored or templated descriptions rather than learned semantic representations. Coherence, integrity, binding, and contradiction are **program-defined operational metrics**, not psychological measurements.
 
-The project is best understood as an executable symbolic experiment: a compact environment for inspecting how explicit recursive update rules can produce convergence, competition, stabilization, and thresholded commitment.
+Accordingly, RID does not establish consciousness, awareness, observerhood, general intelligence, or autonomous identity discovery. Those stronger interpretations would require new definitions, controls, and independent evidence. The project's scientific promise is that these boundaries can be tested and progressively tightened rather than obscured.
 
 ## Citation
 
