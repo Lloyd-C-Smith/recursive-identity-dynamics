@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aion-mirror"
+version = "2.0.0.dev0"
+description = "AION: a label-symmetric recursive identity research lab"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "Lloyd Christopher Smith"}]
+license = {text = "MIT"}
+dependencies = []
+
+[project.scripts]
+aion = "aion_mirror.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["aion_mirror*"]

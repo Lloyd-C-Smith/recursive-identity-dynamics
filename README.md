@@ -1,73 +1,91 @@
-# Recursive Identity Dynamics
+# AION
+### Recursive Identity Lab
 
-### A computational framework for recursive symbolic stabilization and identity dynamics
+**What persists when the inputs change?**
 
-**Recursive Identity Dynamics (RID)** is an executable research framework for investigating how symbolic representations acquire persistence, dominance, and stable commitment through repeated cycles of interpretation, memory, reinforcement, competition, decay, and constraint.
+AION is the next experimental engine in Lloyd Christopher Smith's **Recursive Identity Dynamics (RID) / MIRROR** programme. It studies how symbolic representations compete, accumulate support, stabilize, lose support, and re-form under recursive updates.
 
-**Core research question:** Under what conditions can a recursively updated symbolic system maintain a stable internal representation despite competing symbols, changing inputs, and decay?
+The new name connects the project to **Aion**, the programme's substrate/interpretation motif. The software remains a finite, inspectable mathematical model, not a claim that the motif describes physical reality.
 
-RID treats identity stabilization as a dynamical process rather than simply a static label. Its current implementation makes that process inspectable: symbols accumulate reinforcement and contextual associations, interact in a directed typed graph, and are evaluated against explicit stability and integrity conditions. A thresholded commit gate can lock a designated representation once its criteria are satisfied.
+**Status: 2.0.0.dev0 — research development version, not a published release.** The original RID source remains unchanged in `recursive_identity_dynamics/`. The new engine lives in `aion_mirror/`; the repository address is unchanged.
 
-This is a **controlled model of symbolic stabilization**, not a demonstration that consciousness or an independently discovered self-concept has emerged. Its value is in making the mechanisms and their assumptions explicit, measurable, and open to falsification.
+## The substantive upgrade
 
-## Why investigate this?
+| Original RID experiment | AION engine |
+| --- | --- |
+| Only `self` is eligible for commitment; explicit late-phase preference | Every observed symbol is eligible under the same update and gate |
+| A committed symbol stays locked | Commitments can be released and replaced when recent support fails |
+| Stochastic driver uses global randomness | Private seeded generator, input hashes, configuration and source fingerprints |
+| One final summary | Per-turn JSONL, versioned JSON checkpoints, exact engine/RNG continuation |
+| Proposed controls | Runnable matched-input ablations, frequency baselines and synthetic perturbations |
+| No test suite in the inspected baseline | Standard-library tests and a Python 3.10–3.13 CI matrix |
 
-Stable representations are central to many computational questions: how memory influences later interpretation; how one representation outcompetes alternatives; how persistent structure survives perturbation; and how constraints determine whether a state is accepted as stable.
+The new core deliberately does **not** port RID's templated meanings, hand-written goals, typed-graph inference or integrity score. Those remain available in the preserved legacy code. This is a separate, more controlled experiment, not an assertion of feature parity.
 
-RID brings these questions together in a compact experimental setting. It offers a platform for asking which outcomes follow from recursive feedback, which depend on chosen parameters, and which disappear when a built-in preference is removed.
+## Run it
 
-The longer-term ambition is to move from **designed stabilization** toward experimentally demonstrated **endogenous selection**. That is a research objective, not a result already established.
+Python **3.10 or later**. The new engine and test suite have **no third-party runtime dependencies**.
 
-## How RID works
+```bash
+# From the checked-out repository; installation is optional.
+python -m aion_mirror run --seed 42 --steps 300
 
-On each iteration, the system:
+# Explicitly biased input, with a trajectory and checkpoint.
+python -m aion_mirror run --seed 42 --steps 300 --focus mirror \
+  --trace results/trajectory.jsonl --checkpoint results/state.json
 
-1. Tokenizes an incoming stimulus and stores a symbolic memory trace.
-2. Updates a directed, typed graph of symbol relations.
-3. Tracks token frequency, context, reinforcement, competition, and decay.
-4. Infers simple rule-based goals and applies recent-memory pressure to interpretation.
-5. Computes operational coherence and integrity scores and checks graph-based contradictions.
-6. Evaluates whether the designated candidate meets the conditions for stable commitment.
+# Resume the engine and generator; retain the same workload flags.
+python -m aion_mirror run --resume results/state.json --steps 300 \
+  --focus mirror --output results/continued.json --checkpoint results/state-next.json
 
-The default driver generates stochastic symbolic stimuli, records state across updates, and writes a final `summary.json`.
+# Four regimes x six variants x ten seeds = 240 trials.
+python -m aion_mirror benchmark --seeds 10 --steps 300
 
-### Thresholded commitment
+python -m unittest discover -s tests -v
+```
 
-In the present experiment, `self` is the **sole eligible invariant**. Its commit gate requires a minimum number of turns, leadership over configured competitors, sufficient strength and margin, contextual diversity, integrity, an allowed stabilization mode, and persistence across consecutive evaluations.
+For an installed `aion` command, run `python -m pip install .`. This installs the new package only; the legacy scripts keep their original dependencies and execution model. This repository has not published an `aion-mirror` package to a package index.
 
-These criteria are deliberately specified by the experimenter. The interesting observable is **whether, when, and how the configured system satisfies them**, and how that behavior changes under controlled interventions. A successful lock is not evidence of spontaneous self-discovery.
+Without `--focus`, synthetic inputs uniformly sample pairs from the supplied vocabulary; they are not guaranteed to have equal counts in a finite run. `--focus` deliberately biases the **input**, not candidate eligibility. It is a demonstration condition, not evidence of autonomous identity discovery.
 
-## Research directions
+## Use your own inputs
 
-- **Symbolic competition:** Map conditions under which a candidate wins, loses, or oscillates.
-- **Memory-dependent interpretation:** Test whether changes to history alter future trajectories.
-- **Constraint-mediated selection:** Measure the contribution of integrity and persistence gates.
-- **Robustness:** Test sensitivity to seeds, parameter changes, stimulus distributions, and perturbations.
-- **Endogenous selection:** Generalize beyond a privileged `self` token and test whether any stable representation is selected without a predefined winner.
+```python
+from aion_mirror import Aion, Config
 
-See [RESEARCH_ROADMAP.md](RESEARCH_ROADMAP.md) for hypotheses, validation gates, and proposed next experiments.
+engine = Aion(Config(), seed=42)
+for turn in range(80):
+    state = engine.observe(["anchor", f"context-{turn % 4}"])
+print(state["status"], state["invariant"])
+engine.save("results/checkpoint.json")
+```
 
-## Implementation map
+`observe()` accepts opaque symbol strings. Duplicate tokens within one event count once. `step(text)` adds lowercase tokenization. Nothing reserves `self`, `observer`, or any other label.
 
-- `recursive_identity_dynamics.py` — update loop, stimulus generation, integration, and summary export
-- `tokenizer.py` — lowercase tokenization and filtering
-- `interpreter.py` — token biasing, fixed symbolic definitions, relation extraction, and rule-based goals
-- `memory.py` — event traces and recent symbolic pressure
-- `meaning_store.py` — frequency, context, reinforcement, decay, dominance, and invariant storage
-- `symbol_graph.py` — typed directed graph, implication closure, and cycle detection
-- `contradiction_engine.py` — graph-based contradiction checks
-- `goal_loop.py` — goal tracking and coherence scoring
-- `self_model.py` — stabilization state, binding strength, and commit gate
-- `integrity.py` — bounded operational integrity score
-- `integrity_filter.py` — rule-based intervention checks
-- `observer.py` — event recording and locked-invariant notifications
+For text files, use `python -m aion_mirror run --input stimuli.txt`; each line is one stimulus and a blank line is silence. All lines are processed unless `--steps` sets a limit. `--config settings.json` accepts `Config` field overrides. `python -m aion_mirror run --help` lists the options.
 
-## Interpretation and boundaries
+Checkpoint resume restores model state, evidence history, candidate/release streaks and the generator state. It does **not** restore an external file position or choose your workload: supply the remaining input lines, or repeat the same synthetic vocabulary/focus flags. A changed workload is an intervention. Reproducibility was locally checked on Python 3.13.5; bitwise equality across Python versions is not promised.
 
-RID currently uses hand-designed vocabulary, rules, scoring functions, thresholds, and commitment criteria. Its default stochastic stimulus generator includes a small late-phase bias toward `self`; runs are not deterministic unless randomness is controlled. Symbol meanings are stored or templated descriptions rather than learned semantic representations. Coherence, integrity, binding, and contradiction are **program-defined operational metrics**, not psychological measurements.
+## Model and evidence
 
-Accordingly, RID does not establish consciousness, awareness, observerhood, general intelligence, or autonomous identity discovery. Those stronger interpretations would require new definitions, controls, and independent evidence. The project's scientific promise is that these boundaries can be tested and progressively tightened rather than obscured.
+AION combines decayed evidence, recent-memory pressure and nonlinear feedback. Commitment requires a unique leader, adequate share and margin, recent observations, contextual diversity and consecutive qualifying turns. Ties remain unresolved. Release uses a lower support threshold and its own patience window.
 
-## Citation
+Read [the model specification](docs/MODEL.md), [local validation results](docs/VALIDATION.md), and [the research roadmap](RESEARCH_ROADMAP.md).
+
+The initial local validation covered **36 tests and 240 synthetic trials**. The full model changed its commitment after all ten input-switch trials and released it in all ten silence trials. Its mean switch response took **28 turns**, versus **21.1** for the evidence-only control. That is a measured stability/adaptation trade-off, **not a general performance advantage**. These observations cover the reported seeds, defaults and workloads only.
+
+## Scientific boundaries
+
+An `invariant` in this API means a **revocable operational commitment**, not a proven mathematical invariant. Relabelling tests check symmetry of the implementation; they do not establish semantic identity, observerhood, consciousness or general intelligence.
+
+Removing a privileged label is necessary for studying endogenous selection, but insufficient to demonstrate it. The biased workloads' final winners agree with a recent-frequency baseline. No claim is made that AION has escaped a frequency-based explanation. The next scientific task is to distinguish structural persistence from input-frequency tracking using held-out, frequency-matched controls.
+
+## Lineage and citation
+
+Project author: **Lloyd Christopher Smith**. License: MIT.
+
+The historical RID v1 software citation is retained for that historical implementation only:
 
 > Lloyd Christopher Smith. (2026). *Recursive Identity Dynamics* (Version v1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.21131741
+
+No DOI or published release is asserted for this AION development version. When reporting experiments, identify the AION version, Git commit, configuration, seeds and source fingerprint.

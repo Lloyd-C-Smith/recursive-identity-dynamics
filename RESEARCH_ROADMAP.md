@@ -1,51 +1,39 @@
-# Research Roadmap — Recursive Identity Dynamics
+# Research roadmap — AION / Recursive Identity Dynamics
 
 ## Objective
 
-Develop RID from a controlled symbolic commitment experiment into a rigorous testbed for **stability and selection under recursive symbolic updates**. Distinguish behavior built into the rules from behavior that emerges robustly across configurations.
+Study stability and selection under recursive symbolic updates while separating designed behavior from evidence that survives controls. AION is a new controlled engine; the historical RID implementation remains unchanged.
 
-This document proposes future experiments; it does not report completed empirical results.
+## Gate status in the development version
 
-## Research hypotheses
+| Gate | Implemented support | Still required |
+| --- | --- | --- |
+| G1: Reproducibility | Local seeded RNG, input hashes, config/source provenance, checkpoint continuation tests | Independent replication and cross-platform characterization |
+| G2: Baselines | Matched-input pressure ablations; overall/recent frequency baselines | Frequency-matched structural tasks and predictive baselines |
+| G3: Bias audit | No privileged candidate name; label-permutation tests; explicit input-bias metadata | Wider vocabulary, initialization and parameter sweeps |
+| G4: Robustness | Switch/silence scenarios; recorded multi-seed outcomes | Broad sweeps, uncertainty estimates and adversarial perturbations |
+| G5: Ablations | Feedback, memory pressure, context gate and acquisition-patience controls | Separate integrity/coherence controls require a justified future model |
+| G6: Unprivileged candidates | All observed symbols use symmetric rules; ties unresolved | Show persistence not explained by frequency; not yet established |
+| G7: Generalization | Arbitrary symbol API and held-out-vocabulary smoke test | Meaningful held-out tasks, not merely renamed tokens |
 
-**H1 — Feedback sensitivity.** With stimulus distributions held fixed, changing memory/reinforcement feedback changes the distribution of dominance trajectories and commit times.
+Implemented support is **not** the same as passing a scientific validation gate. The initial observations are documented in `docs/VALIDATION.md`.
 
-**H2 — Constraint dependence.** Integrity, diversity, and persistence requirements materially change false or transient commitment rates relative to simplified gates.
+## Hypotheses to test next
 
-**H3 — Robust stabilization.** Some stable states persist across multiple random seeds and moderate perturbations rather than relying on a single favorable stochastic run.
+**H1 — Feedback contribution.** On fixed-frequency, matched-exposure tasks, recursive feedback changes persistence in a way not reproduced by decayed counts alone. Failure: the full model is indistinguishable from a simple baseline or only adds lag.
 
-**H4 — Endogenous selection (future implementation).** When multiple symbols are eligible and no candidate receives special treatment, the system can select a persistent invariant in a way that is not trivially determined by initialization or stimulus frequency.
+**H2 — Constraint contribution.** Context and persistence gates reduce transient commitments without unacceptable adaptation costs. Failure: they merely delay both desirable and undesirable commitments, with no useful discrimination.
 
-Each hypothesis can fail; failure should be documented, not reframed as success.
+**H3 — Robustness.** Effects survive seeds, parameter neighborhoods and held-out stimulus regimes. Failure: results depend on a narrow tuning choice.
 
-## Validation gates
+**H4 — Structural selection.** A future relation-aware model selects stable structures when token counts are matched. Failure: the apparent invariant is only the most frequent token. AION's present token-strength model does not establish H4.
 
-| Gate | Experiment | Evidence needed | Failure signal |
-| --- | --- | --- | --- |
-| G1: Reproducibility | Fix and record random seeds, configurations, and output summaries | Repeatable trajectories for identical inputs | Unexplained run-to-run divergence |
-| G2: Baselines | Compare full model with no memory pressure, no reinforcement, and simplified gates | Measured differences from simple baselines | No meaningful difference |
-| G3: Bias audit | Remove or vary late-phase `self` bias | Sensitivity curves for commit probability and timing | Outcome explained almost entirely by bias |
-| G4: Robustness | Sweep parameters, seeds, competitor counts, and stimulus mixes | Distributions with uncertainty estimates | Fragility under small changes |
-| G5: Ablation | Disable coherence, integrity, diversity, and persistence criteria separately | Quantified contribution of each criterion | Criteria provide no discriminating value |
-| G6: Unprivileged candidates | Permit multiple invariant candidates under symmetric rules | Stable selection without a hard-coded winner | Selection vanishes or simply mirrors input frequency |
-| G7: Generalization | Evaluate new symbol vocabularies and held-out stimulus regimes | Persistence of effects outside tuned examples | Effects limited to original configuration |
+## Next architectural steps
 
-## Suggested experimental reporting
+Define structural equivalence before adding a multi-symbol core detector. Preserve provenance under relabelling and changing representations; explicitly represent unresolved cases. Add relational or predictive measurements only with null models and independent falsification tests. Derive any future recursive self-reliability mechanism mathematically before calling it observerhood.
 
-For every experiment record: commit SHA, configuration, seed, stimulus regime, number of runs, candidate strengths over time, winner (if any), commit timing, lock persistence, contradiction counts, and ablation condition.
+Do not infer consciousness, ontology, physical laws or general intelligence from a threshold crossing. The programme can retain ambitious questions while making each computational claim narrower and testable.
 
-Report both successes and failures, including non-commit runs. Prefer distributions across repeated trials over illustrative single trajectories. Separate **observations**, **mechanistic interpretations**, and **speculative implications**.
+## Reporting standard
 
-## Conceptual progression
-
-1. **Designed commitment (current):** Examine how an explicitly eligible `self` representation satisfies or fails a configured gate.
-2. **Competitive stabilization:** Characterize trajectories, perturbation response, and parameter regimes.
-3. **Symmetric candidate selection:** Remove candidate privilege and test endogenous winner selection.
-4. **Operational invariance:** Define stability under specified transformations, not just persistence across turns.
-5. **Broader recursive interpretation:** Investigate coupled state/interpreter updates, with the interpreter represented within the modeled state, if a mathematically precise implementation can be specified.
-
-The final stage is a theoretical ambition; the current software does not implement or validate it.
-
-## Standard of evidence
-
-A threshold crossing is a fact about a programmed threshold. A convincing scientific claim requires comparison against null models, ablations, and alternative explanations. Claims about consciousness, physics, or ontology are outside the evidence supplied by the current implementation.
+Report source revision, configuration, all seeds, input regime/hash, every winner and non-winner, commit/release times, persistence, and ablation condition. Separate observations, mechanisms and speculative implications. Publish failures and null results alongside positive examples. No new software DOI is claimed for this development version.
