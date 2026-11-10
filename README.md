@@ -2,73 +2,67 @@
 
 ### Recursive Identity and Observer Dynamics
 
-*What makes a changing system the same system?*
+**A computational research project on symbolic persistence, recursive self-representation and organisational continuity.**
 
-**MIRROR** is a computational research project exploring the relationship between recursive interpretation, constraint and identity.
+MIRROR investigates how a system's internal representations develop through repeated interaction, how some representations become stable, and whether representations of the system itself can contribute to the persistence of its organisation.
 
-Its motivating hypothesis is that identity need not be an object hidden inside a system. It may instead consist in an organisation that persists through change—and, in more developed cases, participates in maintaining that persistence through representations of itself.
+The project connects a philosophical question about identity through change with a computational question about the mechanisms that produce stable patterns. Its existing implementation, **Recursive Identity Dynamics (RID)**, models symbolic reinforcement, memory, competition, decay and threshold-based commitment.
 
-The project asks how such organisation can arise, what sustains it, and what distinguishes a stable symbolic pattern from a system whose representation of itself influences its subsequent activity.
+**Central research question:** Under what conditions does self-representation contribute causally to a system's organisational persistence?
 
-**Central research question:** Under what conditions does self-representation help a system maintain its organisation through change?
+## Project scope
 
-> Identity is not an unchanging state, but an organisation sustained through change.
+**MIRROR** names the research project: **Meta-Interpreter for Recursive Representation and Observer Re-binding**. Here, observer re-binding refers to updating the correspondence between a system's self-representation and its changing state. The name describes the conceptual scope, not a claim that all of its components are implemented.
 
-This is the project's working philosophical proposition, not a result presumed by its experiments.
+**Recursive Identity Dynamics (RID)** remains the name of the existing computational model. The original source directory, class names and repository address are retained.
 
-## Project identity
+The project distinguishes three levels of analysis: the philosophical interpretation of identity, the specification of computational mechanisms, and the evidence obtained from particular runs. Claims at one level do not automatically establish claims at another.
 
-**MIRROR** names the research project and its broader conceptual architecture: **Meta-Interpreter for Recursive Representation and Observer Re-binding**.
+## Theoretical and philosophical foundations
 
-**Recursive Identity Dynamics (RID)** remains the name of the existing computational model. The original source directory, class names and repository address are retained. MIRROR gives that model a philosophical home; it does not imply that the entire conceptual architecture is already implemented.
+### Representation and external reality
 
-**Aion** and **Kairon** name complementary philosophical concepts within the project, rather than separate software agents or alternative names for the whole system.
+The project distinguishes a physical or simulated process from a system's internal representation of that process. A representation is evaluated by its relation to what it represents, not solely by its internal consistency.
 
-## Philosophical foundations
+This distinction separates **coherence** from **accuracy**. A computational score for consistency is not, by itself, a measure of correspondence with an environment. MIRROR's philosophical starting point is that interpreters are components of the systems they investigate, rather than external prerequisites for those systems to exist.
 
-### Reality and interpretation
+### Representational state spaces and constraints
 
-MIRROR begins with a distinction between **reality** and **a system's interpretation of reality**. It does not require the physical world to begin with an observer. Its philosophical proposal concerns how an interpreter might arise within a world that already exists, and how that interpreter becomes part of what it represents.
+A **representational state space** specifies the internal configurations available to a model. **Constraints** specify which configurations and transitions are permitted or favoured by its architecture, update rules, memory and inputs.
 
-A representation can be coherent without being true. Internal consistency therefore matters, but cannot replace agreement with evidence or the environment.
+In RID, the represented information includes symbols, contextual associations, relation graphs and accumulated strengths. Reinforcement, competition, decay and gating rules constrain how this information changes. Persistence must therefore be analysed in relation to the mechanisms and input conditions that produce it, rather than attributed to a symbol merely because it survives.
 
-### Recursion: the interpreter within the process
+### Recursive self-modelling
 
-A system's previous activity can influence how it interprets later inputs. When the system also represents aspects of its own activity, those representations may enter the process that produces its next state. The interpreter is then not merely describing a process from outside: it is a component within that process.
+**Recursive self-modelling** refers here to a proposed mechanism in which a system represents aspects of its own state or activity, and those representations influence subsequent state transitions. The representation and the represented process then participate in the same causal dynamics.
 
-The distinction matters. Repeating an output is not the same as using a representation of one's own activity to shape subsequent activity. MIRROR's interest is in the latter relationship, and in how it can be distinguished from simpler feedback effects.
+This is a stronger claim than recurrence alone. A system can depend on its previous state without maintaining an informative representation of itself. Likewise, a variable named `self` does not establish that such a representation exists. The relevant questions concern what information a representation carries, how it is updated and what difference it makes to the system's behaviour.
 
-### Aion: interpretive possibility
+### Identity as organisational persistence
 
-**Aion** names the openness of the interpretive domain: the space of possible representations and relations available to a system.
+The working philosophical hypothesis is that identity can be investigated through **continuity of organisation**, rather than treated as a fixed internal object or an unchanged symbolic label.
 
-It expresses the possibility of interpreting differently, forming new relations and reorganising an existing account. It is a conceptual name for interpretive possibility, not a claim about a separately discovered physical substance.
+For this hypothesis to support empirical analysis, the relevant organisation must be specified: which relations, functional properties or update mechanisms are expected to persist, over what interval, and under which changes in input or internal state. Persistence of a label, persistence of a pattern and maintenance of a functional organisation are distinct outcomes.
 
-### Kairon: constraint
+The project's question is not simply whether a representation remains dominant. It is whether self-representation contributes to maintaining specified organisational properties as the system changes.
 
-**Kairon** names constraint: the conditions that limit which interpretations can remain coherent and viable.
+### Endogenous observation and model updating
 
-Memory, structure, consistency and environmental feedback can each constrain interpretation. Aion and Kairon are complementary: possibility supplies alternatives; constraint limits which alternatives can be sustained. Neither, by itself, establishes that a surviving interpretation is correct.
+An **endogenous observer** is used here as a functional concept: an information-registering and model-updating process that is itself part of the system being described. Its representations must account for changes in both its environment and its own activity.
 
-### Identity: continuity through change
+The philosophical issue is how an internal model can include the participation of the process constructing it. Computationally, this requires specifying the represented variables, the update relation and the effects of that representation on subsequent behaviour. It does not follow from giving a component an observer-related name.
 
-**Identity**, in this framework, concerns continuity of organisation rather than the repetition of a label. A system repeatedly producing the word `self` would not, by that fact alone, establish the kind of identity under investigation.
+### Interacting systems and reciprocal modelling
 
-The deeper question is whether some organisation persists through changing states and whether self-representation contributes to that persistence. A stable label and a self-maintaining organisation are different explanatory claims.
+The same framework can be stated for interacting systems that represent aspects of one another. In this setting, **reciprocal modelling** concerns how each system's representations and actions affect the other's state and subsequent model updates.
 
-### The Origin Loop: recursive closure
+This extends the philosophical account from individual persistence to relational organisation. It describes part of MIRROR's theoretical scope; the current RID implementation does not establish a multi-system reciprocal-modelling capability.
 
-**The Origin Loop** names a proposed form of recursive closure: the interpreter includes its own participation within its account of the process.
+### Evidence and interpretation
 
-“Origin” therefore refers to a structural relation, not necessarily a first moment in cosmic history or a first observer. The question is how an account of a process can include the activity of the system producing that account.
+The central distinction is between **observing persistence** and **identifying its cause**. Evidence that self-representation contributes to persistence would require a defined organisational measure and controlled comparisons that alter the self-representational mechanism while accounting for input history, memory and reinforcement. Merely observing a stable token cannot distinguish those explanations.
 
-### Observer re-binding and co-mirroring
-
-**Observer re-binding** names the proposed relation between an evolving self-representation and the changing process it represents. Continuity need not require an unchanged description: the description may be revised as the system changes.
-
-**Co-mirroring** extends the inquiry to interacting systems that represent one another and their relationship. The philosophical picture is relational: an interpreter is neither outside the world nor the only perspective within it.
-
-Here, an observer is a proposed functional perspective within a process; the word does not by itself establish conscious experience. These concepts motivate the project and are not conclusions established merely by running the software.
+This is a criterion for interpreting the research question, not a claim that the present implementation has already satisfied it. The framework treats identity and observation as explicitly defined research concepts; it does not assume that symbolic stabilisation demonstrates conscious experience.
 
 ## The computational model
 
@@ -91,9 +85,7 @@ In the present implementation, `self` is the **sole eligible invariant**. Its co
 
 The model uses hand-designed vocabulary, rules, scoring functions and thresholds. Its stimulus distribution changes over a run, and its update loop applies additional late-phase pressure favouring `self`. Symbol meanings are stored or templated descriptions rather than learned semantic representations. Coherence, integrity, binding and contradiction are program-defined operational metrics, not psychological measurements.
 
-Consequently, a successful lock demonstrates that the configured commitment conditions were met—not that the system independently discovered an identity. The existing model does not establish consciousness, observerhood or that self-representation causally maintains a system's organisation. Observer re-binding and co-mirroring describe the broader philosophical architecture, not completed capabilities of this implementation.
-
-This distinction keeps the philosophical question ambitious and the computational claims specific.
+Consequently, a successful lock demonstrates that the configured commitment conditions were met—not that the system independently discovered an identity. The existing model does not establish consciousness, observerhood or that self-representation causally maintains a system's organisation. Endogenous observation and reciprocal modelling belong to the broader theoretical framework, rather than demonstrated capabilities of this implementation.
 
 ## Run the existing model
 
